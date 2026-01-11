@@ -74,6 +74,3 @@ bun run test
 - CRUD: `/api/folders`, `/api/files`
 - Search: `GET /api/search?q=...&scope=all|folders|files&match=prefix|contains`
 - Pagination: `limit` + `offset`
-
-## Docs
-See `docs/PROJECT_OVERVIEW.md` for detailed architecture, flow, and Q&A.
