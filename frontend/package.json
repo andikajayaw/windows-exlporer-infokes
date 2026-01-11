@@ -1,0 +1,29 @@
+{
+  "name": "infokes-frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@primevue/themes": "^4.5.4",
+    "primeicons": "^7.0.0",
+    "primevue": "^4.5.4",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "autoprefixer": "^10.4.23",
+    "jsdom": "^24.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "3.4.17",
+    "tailwindcss-primeui": "^0.6.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.0",
+    "vitest": "^1.6.0"
+  }
+}

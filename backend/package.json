@@ -1,0 +1,26 @@
+{
+  "name": "infokes-backend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "seed": "bun prisma/seed.ts",
+    "seed:small": "FOLDER_COUNT=1000 FILE_COUNT=5000 bun prisma/seed.ts",
+    "seed:medium": "FOLDER_COUNT=10000 FILE_COUNT=50000 bun prisma/seed.ts",
+    "seed:large": "FOLDER_COUNT=50000 FILE_COUNT=200000 bun prisma/seed.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^1.4.1",
+    "@prisma/client": "^5.7.1",
+    "elysia": "^1.4.21"
+  },
+  "devDependencies": {
+    "prisma": "^5.7.1",
+    "typescript": "^5.3.3"
+  }
+}
