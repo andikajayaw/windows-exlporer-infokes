@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
 import { searchService, type MatchMode, type SearchScope } from "../services/searchService";
 
-export const searchRoutes = new Elysia({ prefix: "/api" })
-  // GET /api/search - Search folders and files
+export const searchRoutes = new Elysia({ prefix: "/api/v1" })
+  // GET /api/v1/search - Search folders and files
   .get("/search", async ({ query, set }) => {
     const q = query.q?.trim();
     if (!q) {

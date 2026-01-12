@@ -68,9 +68,9 @@ bun run test
 ```
 
 ## API Quick Notes
-- `GET /api/folders` returns full tree data (All folders mode).
-- `GET /api/folders/roots` returns root only (Root only mode).
-- `GET /api/folders/:id/children` returns direct children for right panel.
-- CRUD: `/api/folders`, `/api/files`
-- Search: `GET /api/search?q=...&scope=all|folders|files&match=prefix|contains`
+- `GET /api/v1/folders` returns full tree data (All folders mode).
+- `GET /api/v1/folders/roots` returns root only (Root only mode).
+- `GET /api/v1/folders/:id/children` returns direct children for right panel.
+- CRUD: `/api/v1/folders`, `/api/v1/files`
+- Search: `GET /api/v1/search?q=...&scope=all|folders|files&match=prefix|contains`
 - Pagination: `limit` + `offset`

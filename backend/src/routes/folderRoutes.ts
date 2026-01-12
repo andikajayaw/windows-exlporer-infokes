@@ -8,8 +8,8 @@ const parseId = (id: string): number | null => {
   return Number.isFinite(num) && num > 0 ? Math.floor(num) : null;
 };
 
-export const folderRoutes = new Elysia({ prefix: "/api" })
-  // GET /api/folders/roots - List root folders only (for lazy loading) - MUST come before :id
+export const folderRoutes = new Elysia({ prefix: "/api/v1" })
+  // GET /api/v1/folders/roots - List root folders only (for lazy loading) - MUST come before :id
   .get("/folders/roots", async ({ query, set }) => {
     const limit = query.limit ? Number(query.limit) : undefined;
     const offset = query.offset ? Number(query.offset) : 0;
@@ -31,7 +31,7 @@ export const folderRoutes = new Elysia({ prefix: "/api" })
     };
   })
 
-  // GET /api/folders - List all folders with files
+  // GET /api/v1/folders - List all folders with files
   .get("/folders", async ({ query, set }) => {
     const limit = query.limit ? Number(query.limit) : undefined;
     const offset = query.offset ? Number(query.offset) : 0;
@@ -51,7 +51,7 @@ export const folderRoutes = new Elysia({ prefix: "/api" })
     };
   })
 
-  // GET /api/folders/:id - Get single folder
+  // GET /api/v1/folders/:id - Get single folder
   .get("/folders/:id", async ({ params, set }) => {
     const folderId = parseId(params.id);
     if (folderId === null) {
@@ -67,7 +67,7 @@ export const folderRoutes = new Elysia({ prefix: "/api" })
     return { folder };
   })
 
-  // GET /api/folders/:id/children - Get folder children
+  // GET /api/v1/folders/:id/children - Get folder children
   .get("/folders/:id/children", async ({ params, query, set }) => {
     const folderId = parseId(params.id);
     if (folderId === null) {
@@ -98,7 +98,7 @@ export const folderRoutes = new Elysia({ prefix: "/api" })
     };
   })
 
-  // POST /api/folders - Create folder
+  // POST /api/v1/folders - Create folder
   .post("/folders", async ({ body, set }) => {
     if (!body.name || typeof body.name !== "string" || !body.name.trim()) {
       set.status = 400;
@@ -127,7 +127,7 @@ export const folderRoutes = new Elysia({ prefix: "/api" })
     })
   })
 
-  // PUT /api/folders/:id - Update folder
+  // PUT /api/v1/folders/:id - Update folder
   .put("/folders/:id", async ({ params, body, set }) => {
     const folderId = parseId(params.id);
     if (folderId === null) {
@@ -161,7 +161,7 @@ export const folderRoutes = new Elysia({ prefix: "/api" })
     })
   })
 
-  // DELETE /api/folders/:id - Delete folder
+  // DELETE /api/v1/folders/:id - Delete folder
   .delete("/folders/:id", async ({ params, set }) => {
     const folderId = parseId(params.id);
     if (folderId === null) {

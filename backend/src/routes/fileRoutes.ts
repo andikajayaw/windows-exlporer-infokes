@@ -7,8 +7,8 @@ const parseId = (id: string): number | null => {
   return Number.isFinite(num) && num > 0 ? Math.floor(num) : null;
 };
 
-export const fileRoutes = new Elysia({ prefix: "/api" })
-  // GET /api/files - List all files
+export const fileRoutes = new Elysia({ prefix: "/api/v1" })
+  // GET /api/v1/files - List all files
   .get("/files", async ({ query, set }) => {
     const limit = query.limit ? Number(query.limit) : undefined;
     const offset = query.offset ? Number(query.offset) : 0;
@@ -27,7 +27,7 @@ export const fileRoutes = new Elysia({ prefix: "/api" })
     };
   })
 
-  // GET /api/files/:id - Get single file
+  // GET /api/v1/files/:id - Get single file
   .get("/files/:id", async ({ params, set }) => {
     const fileId = parseId(params.id);
     if (fileId === null) {
@@ -43,7 +43,7 @@ export const fileRoutes = new Elysia({ prefix: "/api" })
     return { file };
   })
 
-  // POST /api/files - Create file
+  // POST /api/v1/files - Create file
   .post("/files", async ({ body, set }) => {
     if (!body.name || typeof body.name !== "string" || !body.name.trim()) {
       set.status = 400;
@@ -77,7 +77,7 @@ export const fileRoutes = new Elysia({ prefix: "/api" })
     })
   })
 
-  // PUT /api/files/:id - Update file
+  // PUT /api/v1/files/:id - Update file
   .put("/files/:id", async ({ params, body, set }) => {
     const fileId = parseId(params.id);
     if (fileId === null) {
@@ -111,7 +111,7 @@ export const fileRoutes = new Elysia({ prefix: "/api" })
     })
   })
 
-  // DELETE /api/files/:id - Delete file
+  // DELETE /api/v1/files/:id - Delete file
   .delete("/files/:id", async ({ params, set }) => {
     const fileId = parseId(params.id);
     if (fileId === null) {

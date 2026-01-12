@@ -50,11 +50,11 @@ const requestJson = async <T>(input: RequestInfo, init?: RequestInit) => {
 };
 
 export async function fetchFolders(): Promise<FolderPayload> {
-  return requestJson<FolderPayload>("/api/folders");
+  return requestJson<FolderPayload>("/api/v1/folders");
 }
 
 export async function fetchFolder(id: number): Promise<FolderResponse> {
-  return requestJson<FolderResponse>(`/api/folders/${id}`);
+  return requestJson<FolderResponse>(`/api/v1/folders/${id}`);
 }
 
 export type RootFoldersResponse = {
@@ -67,7 +67,7 @@ export async function fetchRootFolders(params?: { limit?: number; offset?: numbe
   if (params?.limit) searchParams.set("limit", String(params.limit));
   if (params?.offset) searchParams.set("offset", String(params.offset));
   const qs = searchParams.toString();
-  return requestJson<RootFoldersResponse>(`/api/folders/roots${qs ? `?${qs}` : ""}`);
+  return requestJson<RootFoldersResponse>(`/api/v1/folders/roots${qs ? `?${qs}` : ""}`);
 }
 
 export type FolderChildrenResponse = {
@@ -82,7 +82,7 @@ export async function fetchFolderChildren(folderId: number, params?: { type?: "a
   if (params?.limit) searchParams.set("limit", String(params.limit));
   if (params?.offset) searchParams.set("offset", String(params.offset));
   const qs = searchParams.toString();
-  return requestJson<FolderChildrenResponse>(`/api/folders/${folderId}/children${qs ? `?${qs}` : ""}`);
+  return requestJson<FolderChildrenResponse>(`/api/v1/folders/${folderId}/children${qs ? `?${qs}` : ""}`);
 }
 
 export async function searchItems(params: {
@@ -102,14 +102,14 @@ export async function searchItems(params: {
   if (params.offset !== undefined) {
     searchParams.set("offset", String(params.offset));
   }
-  return requestJson<SearchResponse>(`/api/search?${searchParams.toString()}`);
+  return requestJson<SearchResponse>(`/api/v1/search?${searchParams.toString()}`);
 }
 
 export async function createFolder(payload: {
   name: string;
   parentId?: number | null;
 }): Promise<FolderResponse> {
-  return requestJson<FolderResponse>("/api/folders", {
+  return requestJson<FolderResponse>("/api/v1/folders", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -120,7 +120,7 @@ export async function updateFolder(
   id: number,
   payload: { name?: string; parentId?: number | null }
 ): Promise<FolderResponse> {
-  return requestJson<FolderResponse>(`/api/folders/${id}`, {
+  return requestJson<FolderResponse>(`/api/v1/folders/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -128,14 +128,14 @@ export async function updateFolder(
 }
 
 export async function deleteFolder(id: number): Promise<void> {
-  await requestJson(`/api/folders/${id}`, { method: "DELETE" });
+  await requestJson(`/api/v1/folders/${id}`, { method: "DELETE" });
 }
 
 export async function createFile(payload: {
   name: string;
   folderId: number;
 }): Promise<FileResponse> {
-  return requestJson<FileResponse>("/api/files", {
+  return requestJson<FileResponse>("/api/v1/files", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -146,7 +146,7 @@ export async function updateFile(
   id: number,
   payload: { name?: string; folderId?: number }
 ): Promise<FileResponse> {
-  return requestJson<FileResponse>(`/api/files/${id}`, {
+  return requestJson<FileResponse>(`/api/v1/files/${id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
@@ -154,5 +154,5 @@ export async function updateFile(
 }
 
 export async function deleteFile(id: number): Promise<void> {
-  await requestJson(`/api/files/${id}`, { method: "DELETE" });
+  await requestJson(`/api/v1/files/${id}`, { method: "DELETE" });
 }
