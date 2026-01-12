@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from "vue";
 import TopBar from "./components/TopBar.vue";
 import Sidebar from "./components/Sidebar.vue";
 import MainPanel from "./components/MainPanel.vue";
@@ -72,10 +73,40 @@ const {
   submitEdit
 } = ui;
 
+const isSidebarOpen = ref(false);
+const isMobile = ref(false);
+let mobileQuery: MediaQueryList | null = null;
+
+const updateMobileState = (event?: MediaQueryListEvent) => {
+  if (!mobileQuery) return;
+  const matches = event?.matches ?? mobileQuery.matches;
+  isMobile.value = matches;
+  isSidebarOpen.value = !matches;
+};
+
+onMounted(() => {
+  if (typeof window === "undefined") return;
+  mobileQuery = window.matchMedia("(max-width: 960px)");
+  updateMobileState();
+  mobileQuery.addEventListener("change", updateMobileState);
+});
+
+onBeforeUnmount(() => {
+  if (!mobileQuery) return;
+  mobileQuery.removeEventListener("change", updateMobileState);
+});
+
+const toggleSidebar = () => {
+  isSidebarOpen.value = !isSidebarOpen.value;
+};
+
 const handleSelect = async (id: number) => {
   await handleSelectData(id);
   cancelEdit();
   cancelCreate();
+  if (isMobile.value) {
+    isSidebarOpen.value = false;
+  }
 };
 
 const selectBreadcrumb = (id: number | null) => {
@@ -92,13 +123,16 @@ const selectBreadcrumb = (id: number | null) => {
       :search-query="searchQuery"
       :search-scope="searchScope"
       :search-scope-options="searchScopeOptions"
+      :sidebar-open="isSidebarOpen"
       @update:search-query="searchQuery = $event"
       @update:search-scope="searchScope = $event"
       @breadcrumb="selectBreadcrumb"
+      @toggle-sidebar="toggleSidebar"
     />
 
     <div class="layout">
       <Sidebar
+        :open="isSidebarOpen"
         :tree="tree"
         :selected-id="selectedId"
         :expanded-ids="expandedIds"

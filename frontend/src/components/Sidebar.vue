@@ -12,6 +12,7 @@ const props = defineProps<{
   loadingIds?: Set<number>;
   loadedIds?: Set<number>;
   isAllMode: boolean;
+  open: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -28,7 +29,7 @@ const modeModel = computed({
 </script>
 
 <template>
-  <aside class="sidebar">
+  <aside class="sidebar" :class="{ 'is-collapsed': !props.open }">
     <div class="sidebar-section">
       <p class="sidebar-title">Folder Tree</p>
       <FolderTree

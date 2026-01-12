@@ -11,12 +11,14 @@ const props = defineProps<{
   searchQuery: string;
   searchScope: SearchScope;
   searchScopeOptions: { label: string; value: SearchScope }[];
+  sidebarOpen: boolean;
 }>();
 
 const emit = defineEmits<{
   (event: "update:searchQuery", value: string): void;
   (event: "update:searchScope", value: SearchScope): void;
   (event: "breadcrumb", id: number | null): void;
+  (event: "toggleSidebar"): void;
 }>();
 
 const queryModel = computed({
@@ -32,6 +34,15 @@ const scopeModel = computed({
 
 <template>
   <header class="topbar">
+    <button
+      type="button"
+      class="sidebar-toggle"
+      :aria-label="props.sidebarOpen ? 'Hide sidebar' : 'Show sidebar'"
+      :aria-expanded="props.sidebarOpen"
+      @click="emit('toggleSidebar')"
+    >
+      <i :class="props.sidebarOpen ? 'pi pi-times' : 'pi pi-bars'"></i>
+    </button>
     <div class="path-bar">
       <span class="path-icon" aria-hidden="true">
         <i class="pi pi-folder-open"></i>

@@ -81,6 +81,15 @@
     min-height: var(--topbar-height);
   }
 
+  .sidebar-toggle {
+    @apply hidden items-center justify-center w-10 h-10 rounded-xl border border-slate-200 bg-white text-slate-600;
+    flex-shrink: 0;
+  }
+
+  .sidebar-toggle:hover {
+    @apply bg-slate-100 text-slate-800;
+  }
+
   .layout {
     @apply flex flex-1;
     height: calc(100vh - var(--topbar-height));
@@ -465,7 +474,7 @@
   }
 
   .card-actions.float {
-    @apply absolute top-3 right-3;
+    @apply absolute top-3 right-3 z-10;
   }
 
   .card-action-btn.p-button {
@@ -722,12 +731,44 @@
 }
 
 @media (max-width: 960px) {
+  .explorer {
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
   .layout {
-    @apply grid-cols-1;
+    @apply flex-col;
+    margin-left: 0;
+    height: auto;
   }
 
   .sidebar {
-    @apply border-r-0 border-b border-slate-200 max-h-72 overflow-y-auto;
+    @apply border-r-0 border-b border-slate-200;
+    position: static;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .sidebar.is-collapsed {
+    display: none;
+  }
+
+  .sidebar-section:first-child {
+    max-height: 40vh;
+    overflow-y: auto;
+    padding-right: 0;
+  }
+
+  .tree-name {
+    max-width: 60vw;
+  }
+
+  .sidebar-toggle {
+    @apply inline-flex;
   }
 
   .folder-grid,
@@ -739,6 +780,16 @@
 @media (max-width: 720px) {
   .topbar {
     @apply gap-2 p-3;
+  }
+
+  .path-bar {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .path-bar::-webkit-scrollbar {
+    display: none;
   }
 
   .main-header {
@@ -761,6 +812,10 @@
 
   .folder-card {
     @apply p-3;
+  }
+
+  .sidebar {
+    @apply p-4 gap-4;
   }
 }
 
@@ -791,7 +846,11 @@
   }
 
   .card-actions {
-    @apply opacity-100 translate-y-0 flex-col gap-1;
+    @apply opacity-100 translate-y-0 w-full justify-end gap-1;
+  }
+
+  .card-actions.float {
+    position: static;
   }
 
   .card-actions .p-button {

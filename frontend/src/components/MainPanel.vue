@@ -75,13 +75,15 @@ const editNameModel = computed({
         <Button
           label="New folder"
           icon="pi pi-folder-plus"
+          class="sidebar-btn-folder"
+          size="small"
           @click="emit('startCreate', 'folder')"
         />
         <Button
           label="New file"
-          icon="pi pi-file"
-          severity="secondary"
-          outlined
+          icon="pi pi-file-plus"
+          class="sidebar-btn-file"
+          size="small"
           :disabled="selectedId === null"
           @click="emit('startCreate', 'file')"
         />
